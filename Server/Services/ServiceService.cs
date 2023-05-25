@@ -59,15 +59,15 @@ namespace Server.Services
             }
             return new BaseResponse() { IsSuccess = false, Message = "Услуга не была найдена." };
         }
-        public BaseResponse PrintList(string? typeService)
+        public BaseResponse PrintList(string? typeService = null)
         {
             using var db = new DataBaseContext();
             var serviceСonditions = db.Service.AsQueryable();
-            if (typeService != null)
+            if (!typeService.IsNullOrEmpty())
             {
-                if(serviceСonditions.Count() == 0)
-                    return new BaseResponse() { IsSuccess = false, Message = $"Услуг '{typeService}' не было найдено. Повторите попытку." };
                 serviceСonditions = serviceСonditions.Where(s => s.TypeService == typeService);
+                if (serviceСonditions.Count() == 0)
+                    return new BaseResponse() { IsSuccess = false, Message = $"Услуг '{typeService}' не было найдено. Повторите попытку." };
             }
             serviceСonditions.ToList()
                     .ForEach(s => Console.WriteLine(
@@ -81,6 +81,14 @@ namespace Server.Services
             if(!typeService.IsNullOrEmpty())
                 return new BaseResponse() { IsSuccess = true, Message = $"Услуг '{typeService}' по вашему запросу было найденно {serviceСonditions.Count()} штук." };
             return new BaseResponse() { IsSuccess = true, Message = $"Всего услуг было найденно {serviceСonditions.Count()} штук." };
+        }
+        public List<string> GetListTypeService()
+        {
+            using var db = new DataBaseContext();
+            var services = db.Service.ToList();
+            var listServices = new List<string>();
+            services.ForEach(s => listServices.Add(s.TypeService));
+            return listServices;
         }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Server.Context;
 
@@ -11,9 +12,11 @@ using Server.Context;
 namespace Server.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20230523150815_AddRaiting")]
+    partial class AddRaiting
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,7 +54,7 @@ namespace Server.Migrations
 
                     b.HasIndex("UserIDUser");
 
-                    b.ToTable("Client", (string)null);
+                    b.ToTable("Client");
                 });
 
             modelBuilder.Entity("Server.Models.Order", b =>
@@ -107,7 +110,7 @@ namespace Server.Migrations
 
                     b.HasIndex("WorkerIDWorker");
 
-                    b.ToTable("Order", (string)null);
+                    b.ToTable("Order");
                 });
 
             modelBuilder.Entity("Server.Models.SalaryWorker", b =>
@@ -152,7 +155,7 @@ namespace Server.Migrations
 
                     b.HasIndex("WorkerIDWorker");
 
-                    b.ToTable("SalaryWorker", (string)null);
+                    b.ToTable("SalaryWorker");
                 });
 
             modelBuilder.Entity("Server.Models.Service", b =>
@@ -181,7 +184,7 @@ namespace Server.Migrations
 
                     b.HasKey("IDService");
 
-                    b.ToTable("Service", (string)null);
+                    b.ToTable("Service");
                 });
 
             modelBuilder.Entity("Server.Models.Shift", b =>
@@ -205,7 +208,7 @@ namespace Server.Migrations
 
                     b.HasIndex("WorkerIDWorker");
 
-                    b.ToTable("Shift", (string)null);
+                    b.ToTable("Shift");
                 });
 
             modelBuilder.Entity("Server.Models.User", b =>
@@ -248,7 +251,7 @@ namespace Server.Migrations
 
                     b.HasKey("IDUser");
 
-                    b.ToTable("User", (string)null);
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("Server.Models.Worker", b =>
@@ -293,7 +296,7 @@ namespace Server.Migrations
 
                     b.HasIndex("UserIDUser");
 
-                    b.ToTable("Worker", (string)null);
+                    b.ToTable("Worker");
                 });
 
             modelBuilder.Entity("Server.Models.Client", b =>

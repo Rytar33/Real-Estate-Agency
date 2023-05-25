@@ -49,6 +49,6 @@ namespace Server.Models
                     $"{LastName} {FirstName}";
             }
         }
-        public EnumStatus EnumStatus { get; set; }
+        public EnumStatus Status { get; set; }
     }
 }

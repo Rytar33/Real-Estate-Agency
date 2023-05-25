@@ -22,7 +22,7 @@ namespace Server.Services
                 return new BaseResponse() { IsSuccess = false, Message = "Имя должно быть в диапозоне от 2-х до 50 символов." };
             if (userRequest.LastName.Length < 2 || userRequest.LastName.Length > 50)
                 return new BaseResponse() { IsSuccess = false, Message = "Фамилия должна быть в диапозоне от 2-х до 50 символов." };
-            if (!userRequest.SecondName.IsNullOrEmpty() && (userRequest.SecondName.Length < 2 || userRequest.SecondName.Length > 50))
+            if (!string.IsNullOrWhiteSpace(userRequest.SecondName) && (userRequest.SecondName!.Length < 2 || userRequest.SecondName.Length > 50))
                 return new BaseResponse() { IsSuccess = false, Message = "Отчество должно быть в диапозоне от 2-х до 50 символов." };
 
             using var db = new DataBaseContext();
@@ -31,25 +31,23 @@ namespace Server.Services
             db.SaveChanges();
             return new BaseResponse() { IsSuccess = true, Message = "Поздравляем! Вы успешно зарегестрировались." };
         }
-        public (BaseResponse, User) LogIn(string name, string password)
+        public (BaseResponse, User?) LogIn(string name, string password)
         {
             using var db = new DataBaseContext();
             var userFind = db.User.FirstOrDefault(u => u.UserName == name && u.Password == password.GetSha256());
             if(userFind == null)
                 return (new BaseResponse() { IsSuccess = false, Message = "Неверное имя пользователя или пароль." }, null);
-            if (userFind.EnumStatus == EnumStatus.Blocked)
+            if (userFind.Status == EnumStatus.Blocked)
                 return (new BaseResponse() { IsSuccess = false, Message = "Ваш аккаунт заблокирован." }, null);
-            userFind.EnumStatus = EnumStatus.Online;
-            db.User.Update(userFind);
+            userFind.Status = EnumStatus.Online;
             db.SaveChanges();
-            return (new BaseResponse() { IsSuccess = true }, userFind);
+            return (new BaseResponse() { IsSuccess = true, Message = "Вы успешно вошли в аккаунт." }, userFind);
         }
         public void Exit(int IDUser)
         {
             using var db = new DataBaseContext();
             var userFind = db.User.FirstOrDefault(u => u.IDUser == IDUser);
-            userFind.EnumStatus = EnumStatus.Offline;
-            db.User.Update(userFind);
+            userFind!.Status = EnumStatus.Offline;
             db.SaveChanges();
         }
         

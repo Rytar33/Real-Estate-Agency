@@ -15,25 +15,34 @@ namespace Server.Services
         public void StartShift()
         {
             using var db = new DataBaseContext();
-            var lastShift = db.Shift.Where(s => s.IDWorker == IDWorker).TakeLast(1).First();
-            if (lastShift != null && lastShift.EndShift == null)
+            var lastShift = db.Shift.Where(s => s.Worker.IDWorker == IDWorker).ToList();
+
+            if (lastShift != null && lastShift.Count > 0)
             {
-                Console.WriteLine("Прошлая смена не была окончена! Окончите её.");
-                return;
+                var shift = lastShift.TakeLast(1).FirstOrDefault();
+                if(shift.EndShift == null)
+                {
+                    Console.WriteLine("Прошлая смена не была окончена! Окончите её.");
+                    return;
+                }
             }
-            db.Shift.Add(new Shift() { IDWorker = IDWorker, StartShift = DateTime.Now });
+            var worker = db.Worker.FirstOrDefault(w => w.IDWorker == IDWorker);
+            db.Shift.Add(new Shift() { Worker = worker, StartShift = DateTime.Now });
             db.SaveChanges();
         }
         public void StopShift() 
         {
             using var db = new DataBaseContext();
-            var lastShift = db.Shift.Where(s => s.IDWorker == IDWorker).TakeLast(1).First();
-            if (lastShift.EndShift != null)
+            var lastShift = db.Shift.Where(s => s.Worker.IDWorker == IDWorker).ToList();
+            Shift shift = new Shift();
+
+            if (lastShift != null && lastShift.Count > 0) shift = lastShift.TakeLast(1).FirstOrDefault()!;
+            if (lastShift == null || lastShift.Count == 0 || shift.EndShift != null)
             {
                 Console.WriteLine("Вы не начали смену.");
                 return;
             }
-            lastShift.EndShift = DateTime.Now;
+            shift.EndShift = DateTime.Now;
             db.SaveChanges();
         }
     }

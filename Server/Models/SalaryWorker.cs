@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -12,6 +13,8 @@ namespace Server.Models
     {
         [Key]
         public int IDSalary { get; set; }
+        public int WorkerIDWorker { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Worker Worker { get; set; }
         [DataType(DataType.Date)]
         public DateTime Start_Month { get; set; }

@@ -13,10 +13,21 @@ namespace Server.Services
 {
     public class OrderService
     {
-        public BaseResponse Add(Order order)
+        public BaseResponse Add(int IDClient, int IDService, string descriptionOrder)
         {
             using var db = new DataBaseContext();
-            db.Add(order);
+            var client = db.Client.FirstOrDefault(c => c.IDClient == IDClient);
+            var service = db.Service.FirstOrDefault(s => s.IDService == IDService);
+            db.Add(new Order() 
+            {
+                Client = client,
+                IsRegularCustomer = client.IsRegularCustomer,
+                Service = service,
+                Sale = (client.IsRegularCustomer) ? 10 : 0,
+                Price_Service = service.PriceService,
+                OrderDescription = descriptionOrder,
+                PublishedOrder = DateTime.Now
+            });
             db.SaveChanges();
             return new BaseResponse() { IsSuccess = true, Message = "Ваш заказ успешно отправлен. Ожидайте пока сотрудник обработает его." };
         }
@@ -24,32 +35,52 @@ namespace Server.Services
         {
             using var db = new DataBaseContext();
             var orderAccept = db.Order.FirstOrDefault(o => o.IDOrder == IDOrder);
+            var worker = db.Worker.FirstOrDefault(w => w.IDWorker == IDWorker);
             if (orderAccept == null)
                 return new BaseResponse() { IsSuccess = false, Message = $"Заказ с номером {IDOrder} не найден." };
-            orderAccept.Worker.IDWorker = IDWorker;
+            if (worker == null) 
+                return new BaseResponse() 
+                { 
+                    IsSuccess = false,
+                    Message = $"Работника под номером {IDWorker} не было найдено. Обратитесь к администратору."
+                };
+            orderAccept.Worker = worker;
             orderAccept.IsOrderAccepted = true;
             orderAccept.TransactionDate = DateTime.Now;
-            db.Order.Update(orderAccept);
             db.SaveChanges();
             return new BaseResponse() { IsSuccess = true, Message = $"Заказ №{IDOrder} успешно принят." };
         }
-        public void GetList(bool? IsNotAccept)
+        public BaseResponse SetScore(int IDClient, int IDOrder, int score, string description = "")
+        {
+            using var db = new DataBaseContext();
+            var order = db.Order.FirstOrDefault(o => o.IDOrder == IDOrder && o.Client.IDClient == IDClient);
+            if (order == null) return new BaseResponse() { IsSuccess = false, Message = "Такого заказа не было найденно и/или вы его не оформляли." };
+            if (order.ScoreForWork != null) return new BaseResponse() { IsSuccess = false, Message = "Данный заказ уже имеет оценку." };
+            order.ScoreForWork = score;
+            order.DesriptionForCompletedOrder = description;
+            db.SaveChanges();
+            return new BaseResponse() { IsSuccess = true, Message = "Ваша оценка успешно выставленна. Спасибо за оставленный вами отзыв!" };
+        }
+        public List<Order> GetList(bool? IsAccept = null, int? IDClient = null, int? IDWorker = null)
         {
             using var db = new DataBaseContext();
             var listOrders = db.Order.AsQueryable();
-            if (IsNotAccept != null)
-            {
-                if ((bool)IsNotAccept)
-                    listOrders = listOrders
-                        .Where(o => !o.IsOrderAccepted);
-            }
-            db.Order.ToList().ForEach(o => Console.WriteLine(PrintOrder(o)));
+            if (IDClient != null)
+                listOrders = listOrders
+                    .Where(o => o.Client.IDClient == IDClient);
+            if (IDWorker != null)
+                listOrders = listOrders
+                    .Where(o => o.Worker != null && o.Worker.IDWorker == IDWorker);
+            if (IsAccept != null)
+                listOrders = listOrders
+                    .Where(o => o.IsOrderAccepted == IsAccept);
+            return listOrders.ToList();
         }
         public void CreateWordFile(int IDOrder)
         {
             using var db = new DataBaseContext();
             var order = db.Order.FirstOrDefault(o => o.IDOrder == IDOrder);
-            if (order != null) Console.WriteLine(PrintOrder(order));
+            if (order != null) Console.WriteLine(GetOrder(order));
             else Console.WriteLine($"Заказ под номером {IDOrder} не был найден.");
             Dictionary<string, string> keyValuesTextReplace = new Dictionary<string, string>()
             {
@@ -80,17 +111,19 @@ namespace Server.Services
             foreach (var line in keyValuesTextReplace)
             {
                 Console.Write(line.Value + ": ");
-                string replaceText = Console.ReadLine();
+                string replaceText = Console.ReadLine()!;
                 doc.Range.Replace(line.Key, replaceText, new FindReplaceOptions());
             }
             doc.Save($"{DateTime.Now.ToShortDateString()}Output.doc");
         }
-        public string PrintOrder(Order order)
+        public string GetOrder(Order order)
         {
+            string border = "====================================";
             using var db = new DataBaseContext();
-            var userName = db.User.FirstOrDefault(u => u.IDUser == order.Client.User.IDUser);
-            var service = db.Service.FirstOrDefault(s => s.IDService == order.Service.IDService);
-            string orderInf = "====================================\n"
+            var idUser = db.Client.FirstOrDefault(u => u.IDClient == order.ClientIDClient)!.UserIDUser;
+            var userName = db.User.FirstOrDefault(u => u.IDUser == idUser);
+            var service = db.Service.FirstOrDefault(s => s.IDService == order.ServiceIDService);
+            string orderInf = $"{border}\n"
                     + $"Заказ №{order.IDOrder}\n"
                     + $"Пользователь {userName.UserName}\n"
                     + $"Услуга: {service.NameService}\n"
@@ -98,14 +131,18 @@ namespace Server.Services
                     + $"Цена за заказ(с учетом скидки): {order.Price_Service - (order.Price_Service * (order.Sale / 100))}\n"
                     + $"Скидка {order.Sale}%\n"
                     + $"Дата отправки заказа: {order.PublishedOrder}\n";
-            if (!order.IsOrderAccepted)
-                return orderInf + "====================================";
 
-            var worker = db.Worker.FirstOrDefault(w => w.IDWorker == order.Worker.IDWorker);
-            return orderInf 
-                + $"Дата принятия заказа: {order.TransactionDate}\n"
-                + $"Принял сотрудник: {worker.FullName}\n"
-                + "====================================";
+            if (!order.IsOrderAccepted) return orderInf + border;
+
+            var worker = db.Worker.FirstOrDefault(w => w.IDWorker == order.WorkerIDWorker);
+            orderInf += $"Дата принятия заказа: {order.TransactionDate}\n"
+                + $"Принял сотрудник: {worker.FullName}\n";
+
+            if(order.ScoreForWork != null)
+                orderInf += $"Оценка за выполненный заказ: {order.ScoreForWork}/10\n";
+            if (!string.IsNullOrWhiteSpace(order.DesriptionForCompletedOrder))
+                orderInf += $"Комментарий к тому как выполнен заказ: {order.DesriptionForCompletedOrder}\n";
+            return orderInf + border;
         }
     }
 }
