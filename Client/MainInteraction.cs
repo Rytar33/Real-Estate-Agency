@@ -11,7 +11,7 @@ namespace Client
     {
         public User User { get; set; }
         public MainInteraction(User user) => User = user;
-        public User WrapperInteraction()
+        public User? WrapperInteraction()
             => User.TypeAccount switch
             {
                 "Client" => new Client(User).Interaction(),

@@ -14,13 +14,13 @@ namespace Client.SignInUp
         {
             User user = new User();
             Console.Write("Имя пользователя: ");
-            user.UserName = Console.ReadLine();
+            user.UserName = Console.ReadLine()!;
             Console.Write("Пароль пользователя: ");
-            user.Password = Console.ReadLine();
+            user.Password = Console.ReadLine()!;
             Console.Write("Ваше имя: ");
-            user.FirstName = Console.ReadLine();
+            user.FirstName = Console.ReadLine()!;
             Console.Write("Ваша фамилия: ");
-            user.LastName = Console.ReadLine();
+            user.LastName = Console.ReadLine()!;
             Console.Write("Ваша отчество(не обязательно): ");
             user.SecondName = Console.ReadLine();
             if (worker != null && worker.RightChangeWorkers)

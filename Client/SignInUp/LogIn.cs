@@ -18,8 +18,7 @@ namespace Client.SignInUp
             Console.Write("Введите пароль: ");
             string password = Console.ReadLine();
             (BaseResponse response, User getUser) = new UserService().LogIn(userName, password);
-            if (!response.IsSuccess)
-                Console.WriteLine(response.Message);
+            Console.WriteLine(response.Message);
             return getUser;
         }
     }
