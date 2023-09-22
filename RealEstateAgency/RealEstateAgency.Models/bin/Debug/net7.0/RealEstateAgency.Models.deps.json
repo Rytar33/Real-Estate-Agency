@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v7.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v7.0": {
+      "RealEstateAgency.Models/1.0.0": {
+        "dependencies": {
+          "RealEstateAgency.Enums": "1.0.0"
+        },
+        "runtime": {
+          "RealEstateAgency.Models.dll": {}
+        }
+      },
+      "RealEstateAgency.Enums/1.0.0": {
+        "runtime": {
+          "RealEstateAgency.Enums.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "RealEstateAgency.Models/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "RealEstateAgency.Enums/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

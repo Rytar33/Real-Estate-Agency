@@ -1,0 +1,15 @@
+C:\Users\user\source\repos\RealEstateAgency\RealEstateAgency.Models\bin\Debug\net7.0\RealEstateAgency.Models.deps.json
+C:\Users\user\source\repos\RealEstateAgency\RealEstateAgency.Models\bin\Debug\net7.0\RealEstateAgency.Models.dll
+C:\Users\user\source\repos\RealEstateAgency\RealEstateAgency.Models\bin\Debug\net7.0\RealEstateAgency.Models.pdb
+C:\Users\user\source\repos\RealEstateAgency\RealEstateAgency.Models\bin\Debug\net7.0\RealEstateAgency.Enums.dll
+C:\Users\user\source\repos\RealEstateAgency\RealEstateAgency.Models\bin\Debug\net7.0\RealEstateAgency.Enums.pdb
+C:\Users\user\source\repos\RealEstateAgency\RealEstateAgency.Models\obj\Debug\net7.0\RealEstateAgency.Models.csproj.AssemblyReference.cache
+C:\Users\user\source\repos\RealEstateAgency\RealEstateAgency.Models\obj\Debug\net7.0\RealEstateAgency.Models.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\source\repos\RealEstateAgency\RealEstateAgency.Models\obj\Debug\net7.0\RealEstateAgency.Models.AssemblyInfoInputs.cache
+C:\Users\user\source\repos\RealEstateAgency\RealEstateAgency.Models\obj\Debug\net7.0\RealEstateAgency.Models.AssemblyInfo.cs
+C:\Users\user\source\repos\RealEstateAgency\RealEstateAgency.Models\obj\Debug\net7.0\RealEstateAgency.Models.csproj.CoreCompileInputs.cache
+C:\Users\user\source\repos\RealEstateAgency\RealEstateAgency.Models\obj\Debug\net7.0\RealEstateAgency.Models.csproj.CopyComplete
+C:\Users\user\source\repos\RealEstateAgency\RealEstateAgency.Models\obj\Debug\net7.0\RealEstateAgency.Models.dll
+C:\Users\user\source\repos\RealEstateAgency\RealEstateAgency.Models\obj\Debug\net7.0\refint\RealEstateAgency.Models.dll
+C:\Users\user\source\repos\RealEstateAgency\RealEstateAgency.Models\obj\Debug\net7.0\RealEstateAgency.Models.pdb
+C:\Users\user\source\repos\RealEstateAgency\RealEstateAgency.Models\obj\Debug\net7.0\ref\RealEstateAgency.Models.dll

@@ -1,0 +1,91 @@
+{
+  "version": 3,
+  "targets": {
+    "net7.0": {
+      "RealEstateAgency.Enums/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "compile": {
+          "bin/placeholder/RealEstateAgency.Enums.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/RealEstateAgency.Enums.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "RealEstateAgency.Enums/1.0.0": {
+      "type": "project",
+      "path": "../RealEstateAgency.Enums/RealEstateAgency.Enums.csproj",
+      "msbuildProject": "../RealEstateAgency.Enums/RealEstateAgency.Enums.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net7.0": [
+      "RealEstateAgency.Enums >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\user\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "C:\\Users\\user\\source\\repos\\RealEstateAgency\\RealEstateAgency.Models\\RealEstateAgency.Models.csproj",
+      "projectName": "RealEstateAgency.Models",
+      "projectPath": "C:\\Users\\user\\source\\repos\\RealEstateAgency\\RealEstateAgency.Models\\RealEstateAgency.Models.csproj",
+      "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\user\\source\\repos\\RealEstateAgency\\RealEstateAgency.Models\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net7.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "projectReferences": {
+            "C:\\Users\\user\\source\\repos\\RealEstateAgency\\RealEstateAgency.Enums\\RealEstateAgency.Enums.csproj": {
+              "projectPath": "C:\\Users\\user\\source\\repos\\RealEstateAgency\\RealEstateAgency.Enums\\RealEstateAgency.Enums.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net7.0": {
+        "targetAlias": "net7.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

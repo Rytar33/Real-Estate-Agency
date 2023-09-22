@@ -1,0 +1,11 @@
+C:\Users\user\source\repos\RealEstateAgency\RealEstateAgency.Enums\bin\Debug\net7.0\RealEstateAgency.Enums.deps.json
+C:\Users\user\source\repos\RealEstateAgency\RealEstateAgency.Enums\bin\Debug\net7.0\RealEstateAgency.Enums.dll
+C:\Users\user\source\repos\RealEstateAgency\RealEstateAgency.Enums\bin\Debug\net7.0\RealEstateAgency.Enums.pdb
+C:\Users\user\source\repos\RealEstateAgency\RealEstateAgency.Enums\obj\Debug\net7.0\RealEstateAgency.Enums.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\source\repos\RealEstateAgency\RealEstateAgency.Enums\obj\Debug\net7.0\RealEstateAgency.Enums.AssemblyInfoInputs.cache
+C:\Users\user\source\repos\RealEstateAgency\RealEstateAgency.Enums\obj\Debug\net7.0\RealEstateAgency.Enums.AssemblyInfo.cs
+C:\Users\user\source\repos\RealEstateAgency\RealEstateAgency.Enums\obj\Debug\net7.0\RealEstateAgency.Enums.csproj.CoreCompileInputs.cache
+C:\Users\user\source\repos\RealEstateAgency\RealEstateAgency.Enums\obj\Debug\net7.0\RealEstateAgency.Enums.dll
+C:\Users\user\source\repos\RealEstateAgency\RealEstateAgency.Enums\obj\Debug\net7.0\refint\RealEstateAgency.Enums.dll
+C:\Users\user\source\repos\RealEstateAgency\RealEstateAgency.Enums\obj\Debug\net7.0\RealEstateAgency.Enums.pdb
+C:\Users\user\source\repos\RealEstateAgency\RealEstateAgency.Enums\obj\Debug\net7.0\ref\RealEstateAgency.Enums.dll
